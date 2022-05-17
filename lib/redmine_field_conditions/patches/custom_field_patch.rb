@@ -4,8 +4,9 @@ module RedmineFieldConditions
 			
 			def self.included(base)
 				base.extend(ClassMethods)
-				base.send :include, InstanceMethods
+				base.send :prepend, InstanceMethods
 				base.class_eval do
+					store :conditions, accessors: [:rules, :expr], coder: JSON
 					safe_attributes 'conditions'
 				end
 			end
@@ -17,7 +18,7 @@ module RedmineFieldConditions
 			module ClassMethods
 
 			end
-			
+
 		end
 	end
 end
