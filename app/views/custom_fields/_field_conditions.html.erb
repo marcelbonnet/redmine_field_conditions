@@ -1,0 +1,32 @@
+<p>
+	<%=label_tag l("redmine_field_conditions.label_enabled") %>
+	<%=check_box_tag "custom_field[field_conditions][enabled]", '1', checked: (@custom_field.conditions['enabled'] == true)  %>
+</p>
+
+<p><%=@custom_field.type %> e carregar só as opções válidas no tipo "field" 
+<br>
+<%=@conditions%> dos params, que estou fazendo agora
+</p>
+<!-- criar select_tag para o campo "field" de cada regra. Se for um
+IssueCustomField, listar somente campos de Issue no select_tag e todos os core_fields ou somente os válidos no Tracker? -->
+
+<% unless @custom_field.conditions.empty? %>
+	<% @custom_field.conditions['rules'].each do |obj| %>
+	<p>
+		<%=label_tag l("redmine_field_conditions.label_rule_name") %>
+		<%=text_field_tag "custom_field[field_conditions][rule_name][]", obj['rule']['name'] %>
+	</p>
+	<p>
+		<%=label_tag l("redmine_field_conditions.label_rule_field") %>
+		<%=text_field_tag "custom_field[field_conditions][rule_field][]", obj['rule']['field'] %>
+	</p>
+	<p>
+		<%=label_tag l("redmine_field_conditions.label_rule_op") %>
+		<%=text_field_tag "custom_field[field_conditions][rule_op][]", obj['rule']['op'] %>
+	</p>
+	<p>
+		<%=label_tag l("redmine_field_conditions.label_rule_val") %>
+		<%=text_field_tag "custom_field[field_conditions][rule_val][]", obj['rule']['val'] %>
+	</p>
+	<% end %>
+<% end %>
