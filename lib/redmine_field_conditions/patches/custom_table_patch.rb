@@ -8,21 +8,17 @@ module RedmineFieldConditions
 				base.class_eval do
 					store :conditions, accessors: [:rules, :expr], coder: JSON
 					safe_attributes 'conditions'
+					include RedmineFieldConditions
 				end
 			end
 
 			module InstanceMethods
 
-				# Overrides CustomTable#showable?
+				# Overrides CustomTable#visible_to?
 				# Returns true if the Tables Conditions for exhibition are satisfied
-			  def showable?(issue)
+			  def visible_to?(issue)
 			    return true if User.current.admin?
-			    # teste de condição:
-			    rules = []
-			    rules << ((issue.custom_value_for(89).value =~ /.*Tributária.*/) == 0)
-			    rules << (self.id == 46 || self.is_form?)
-			    Rails.logger.info "REGRAS TABELA: #{rules}"
-			    rules.all?(true)
+			    return check_condition(self.conditions, issue)
 			  end
 
 			end

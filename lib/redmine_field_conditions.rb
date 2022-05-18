@@ -5,40 +5,12 @@ module RedmineFieldConditions
 	SAFE_OP_LIST = ['true', 'false', 'and', 'or', '&&', '||', '!','not','?',':', '%', '+','-','/','*','**', '==','!=','>','<','>=','<=','<=>','===','^', '&','|', '~', '<<','>>']
 	HARDER_TO_CHECK_OPS = /\(|\)|\[|\]/
 
-	# TODO remove this was for test purpose
-	def self.teste
-	# regex, eq, ne, lt, gt, le, ge
-		expressions = {
-			"rules"=> [
-				{ 
-					"name"=> "contains_string",
-					"rule"=> {
-						"name"=> "Contains String",
-						"field"=> "89",
-						"op"=> "regex",
-						"val"=> ".*Tributária.*"
-					}
-				},
-				{ 
-					"name"=> "started_date",
-					"rule"=> {
-						"name"=> "Started Date",
-						"field"=> "start_date",
-						"op"=> "gt",
-						"val"=> "180 days"
-					}
-				}
-			],
-			"expr"=> "(contains_string and started_date)"
-		}
-	end
-
-	# Compile the condtions to an expression
+	# Compile the condtions and return the result from an expression
 	# @params {Hash} c The conditions
 	# @params {Issue} issue The Issue
-	def self.compile(c, issue)
+	def check_condition(c, issue)
+		return true if c.empty? or !c['enabled']
 		expr = c["expr"]
-		# rules_names = c["expr"].gsub(/\W/, " ").gsub(/AND|OR/,"").split
 		rules_names = c["expr"].gsub(/\W/, " ").split.reject{|w| SAFE_OP_LIST.include?(w) }
 		rules_names.each do |rule_name|
 			rule = c["rules"].select{|rules| rules["name"] == rule_name }
@@ -62,7 +34,7 @@ module RedmineFieldConditions
   # @params {Ojbect} v1 value
 	# @params {String} op Operator: regex, eq, ne, lt, gt, le, ge
   # @params {Ojbect} v2 value
-  def self.compile_for_operator(v1, op, v2)
+  def compile_for_operator(v1, op, v2)
 	  case op
 	  when "regex"
 	  	not v1.match(Regexp.new v2).nil?
@@ -87,7 +59,7 @@ module RedmineFieldConditions
 	# for the compiler
 	# @params {Hash} r A rule
 	# @params {Issue} issue The Issue
-	def self.compile_for_class(r, issue)
+	def compile_for_class(r, issue)
 		class_name = nil
 		value = nil
 		value_2 = nil

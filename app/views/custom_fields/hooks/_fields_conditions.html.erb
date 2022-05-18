@@ -1,5 +1,19 @@
 <hr>
-<p>FIELDS CONDITIONS</p>
-<!-- <p><%#=@custom_field.name%></p> -->
-<!-- <p><%#=form.text_field :name %></p> -->
-<hr>
+
+<div id="field_conditions"></div>
+
+<%=hidden_field_tag "custom_field[cf_id]", @custom_field.id %>
+
+<script type="text/javascript">
+	function edit_field_conditions()
+	{
+	  $.ajax({
+	    url: '<%=url_for(action: 'edit_custom_field', controller: 'redmine_field_conditions', format: 'js')%>',
+	    type: 'post',
+	    data: $('#custom_field_form').serialize(),
+	    complete: toggleDisabledInit
+	  }).error(function(jqXHR, textStatus, errorThrown){
+	  	alert("Oops...)\nErr:\n"+textStatus+"\n"+errorThrown)
+	  	});
+	}
+</script>
