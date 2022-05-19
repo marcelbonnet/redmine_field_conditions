@@ -7,8 +7,12 @@ class RedmineFieldConditionsController < ApplicationController
 		# 	params['type']="IssueCustomField"
 		# 	e params["custom_field"]["field_format"]
 		# se for um campo existente, não traz o type. Vou ter que buscar por params["custom_field"]["cf_id"]
-		@custom_field = CustomField.new
-		@custom_field.safe_attributes = params["custom_field"]
+		if not params["custom_field"]["cf_id"].empty?
+			@custom_field = CustomField.find(params["custom_field"]["cf_id"])
+		else
+			@custom_field = CustomField.new
+			@custom_field.safe_attributes = params["custom_field"]
+		end
 		@conditions = params["custom_field"]["field_conditions"]
 	end
 

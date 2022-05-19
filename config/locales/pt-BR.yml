@@ -1,6 +1,7 @@
 pt-BR:
   redmine_field_conditions:
-    label_enabled: Situação das Condições
+    label_enabled: Condições
+    label_active: Ativo
     label_rule_name: Nome da Regra
     label_rule_field: Campo
     label_rule_op: Operador
