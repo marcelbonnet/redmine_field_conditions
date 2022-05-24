@@ -9,7 +9,7 @@ module RedmineFieldConditions
 	# @params {Hash} c The conditions
 	# @params {Issue} issue The Issue
 	def check_condition(c, issue)
-		return true if c.empty? or !c['enabled']
+		return true if c.empty? or c['enabled'] == false
 		expr = c["expr"]
 		rules_names = c["expr"].gsub(/\W/, " ").split.reject{|w| SAFE_OP_LIST.include?(w) }
 		rules_names.each do |rule_name|
