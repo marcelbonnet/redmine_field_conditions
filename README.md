@@ -77,3 +77,7 @@ Another example: the issue must have start_date >= 7.days.ago as condition for e
 		"enabled" => true
 	}
 ```
+TODO
+----------
+
+* Compare between custom fields/core fields
