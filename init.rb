@@ -21,6 +21,9 @@ Rails.configuration.to_prepare do
   Issue.send :include, RedmineFieldConditions::Patches::IssuePatch
 end
 
+# ########################################################
+# Esse lixo todo abaixo é pra me lembrar de patches que
+# devem ser feitos
 
 # Dir[File.join(File.dirname(__FILE__), '/lib/patches/**/*.rb')].each { |file| require_dependency file }
 # require_dependency 'hooks.rb'
