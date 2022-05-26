@@ -5,10 +5,11 @@
 </p>
 
 <% if @conditions.nil? %>
-	<%=build_conditions_form(@custom_field, @conditions)%>
+	<% current_conditions = @custom_field.conditions %>
 <% else %>
-	<% @conditions['rules'].each do |obj| %>
-		<%=build_conditions_form(@custom_field, obj)%>
-	<% end %>
+	<% current_conditions = @conditions %>
 <% end %>
 
+<% current_conditions['rules'].each_with_index do |obj, n| %>
+	<%=build_conditions_form(@custom_field, obj, n)%>
+<% end %>

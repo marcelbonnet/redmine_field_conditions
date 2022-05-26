@@ -1,31 +1,25 @@
 class RedmineFieldConditionsController < ApplicationController
 
-	# before_action :find_custom_field, only: [:edit_custom_field]
+	include RedmineFieldConditions::Utils
+
+	before_action :prepare_conditions
 
 	def edit_custom_field
-		# se for um campo novo: params traz 
-		# 	params['type']="IssueCustomField"
-		# 	e params["custom_field"]["field_format"]
-		# se for um campo existente, não traz o type. Vou ter que buscar por params["custom_field"]["cf_id"]
-		if not params["custom_field"]["cf_id"].empty?
-			@custom_field = CustomField.find(params["custom_field"]["cf_id"])
-		else
-			@custom_field = CustomField.new
-			@custom_field.safe_attributes = params["custom_field"]
-		end
-		@conditions = params["custom_field"]["field_conditions"]
+	end
+
+	def add_blank_condition
+	end
+
+	def remove_rule
+		# @conditions['rules'].delete_at(params['rule'].to_i)
+		@position = params['rule']
 	end
 
 	private
 
-	# def find_custom_field
-	# 	begin
-	# 		@custom_field = CustomField.find(params["custom_field"]["cf_id"])
-	# 	rescue ActiveRecord::RecordNotFound
-	# 		@custom_field = CustomField.new
-	# 		@custom_field.safe_attributes = params["custom_field"]
-	# 	end
-	# end
-	
+	def prepare_conditions
+		params_to_conditions(params)
+	end
+
 end
 

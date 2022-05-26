@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_field_conditions do
   name 'Redmine Field Conditions'
   author 'Marcel Bonnet'
   description 'Adds conditions for custom fields to dynamically change rules for its exhibition or filling requirement.'
-  version '0.0.1'
+  version '0.0.2'
   url 'https://github.com/marcelbonnet/redmine_field_conditions'
   author_url 'https://github.com/marcelbonnet'
 
@@ -18,6 +18,8 @@ require_dependency 'redmine_field_conditions/hooks/custom_field_view_hook'
 
 Rails.configuration.to_prepare do
   CustomField.send :include, RedmineFieldConditions::Patches::CustomFieldPatch
+  CustomFieldsHelper.send :include, RedmineFieldConditions::Patches::CustomFieldsHelperPatch
+  CustomFieldsController.send :include, RedmineFieldConditions::Patches::CustomFieldsControllerPatch
   Issue.send :include, RedmineFieldConditions::Patches::IssuePatch
 end
 

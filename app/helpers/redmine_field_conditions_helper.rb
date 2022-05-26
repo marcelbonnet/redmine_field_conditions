@@ -10,11 +10,13 @@ module RedmineFieldConditionsHelper
 		['<=', 'le']
 	]
 
-	def build_conditions_form(custom_field, rules)
+	def build_conditions_form(custom_field, rules, rule_index)
 		html = ""
+
+		rule_name = (rules.nil? ? "" : rules['rule']['name'])
 		
 		elements = label_tag( l("redmine_field_conditions.label_rule_name"))
-		elements << text_field_tag( "custom_field[field_conditions][rule_name][]", (rules.nil? ? "" : rules['rule']['name']), maxlength:30)
+		elements << text_field_tag( "custom_field[field_conditions][rule_name][]", rule_name, maxlength:30)
 		html << content_tag(:p, elements)
 		
 		core_fields = Tracker::CORE_FIELDS
@@ -35,7 +37,11 @@ module RedmineFieldConditionsHelper
 		elements << text_field_tag( "custom_field[field_conditions][rule_val][]", (rules.nil? ? "" : rules['rule']['val']))
 		html << content_tag(:p, elements)
 
-		html.html_safe
+		elements = label_tag("")
+		elements << button_tag("", type: 'button', class: 'icon-only icon-del', onclick:"submit_conditions('#{url_for(action: 'remove_rule', controller: 'redmine_field_conditions', rule: rule_index , format: 'js')}')")
+		html << content_tag(:p, elements)
+
+		content_tag(:div, html.html_safe, "data-rule": rule_index)
 	end
 
 end

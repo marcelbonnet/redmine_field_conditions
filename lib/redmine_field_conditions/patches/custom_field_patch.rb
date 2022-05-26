@@ -38,7 +38,7 @@ module RedmineFieldConditions
 			  def multiple_to?(obj)
 			  	# TODO
 			  end
-				
+
 			end
 
 			module ClassMethods

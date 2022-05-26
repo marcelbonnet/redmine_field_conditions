@@ -35,9 +35,12 @@ module RedmineFieldConditions
 	# @params {String} op Operator: regex, eq, ne, lt, gt, le, ge
   # @params {Ojbect} v2 value
   def compile_for_operator(v1, op, v2)
+  	# ignore the rule if the field does not exist for the issue
+  	return true if v1.nil? || v2.nil?
+
 	  case op
 	  when "regex"
-	  	not v1.match(Regexp.new v2).nil?
+	  		not v1.match(Regexp.new v2).nil?
 	  when "eq"
 	  	v1 == v2
 	  when "ne"
@@ -69,8 +72,10 @@ module RedmineFieldConditions
 			class_name = value.class.name.downcase
 		else
 			cv = issue.custom_value_for(field)
-			value = cv.value
-			class_name = cv.custom_field.field_format.downcase
+			unless cv.nil?
+				value = cv.value
+				class_name = cv.custom_field.field_format.downcase
+			end
 		end
 
 		# must implement Ruby types and Redmine::FieldFormat.available_formats

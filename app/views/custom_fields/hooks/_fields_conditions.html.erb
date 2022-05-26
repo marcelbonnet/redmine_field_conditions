@@ -1,14 +1,19 @@
 <hr>
 
-<div id="field_conditions"></div>
+<div id="field_conditions">
+	<%= render partial: "custom_fields/field_conditions" %>
+</div>
+
+<%=button_tag l("redmine_field_conditions.label_button_new_rule"), type: 'button', class: 'icon icon-add', onclick:"add_blank_rule()" %>
 
 <%=hidden_field_tag "custom_field[cf_id]", @custom_field.id %>
+<%#=hidden_field_tag "custom_field[add_blank_rule]", "" %>
+<%#=hidden_field_tag "custom_field[remove_rule]", "" %>
 
 <script type="text/javascript">
-	function edit_field_conditions()
-	{
-	  $.ajax({
-	    url: '<%=url_for(action: 'edit_custom_field', controller: 'redmine_field_conditions', format: 'js')%>',
+	function submit_conditions(url){
+		$.ajax({
+	    url: url,
 	    type: 'post',
 	    data: $('#custom_field_form').serialize(),
 	    complete: toggleDisabledInit
@@ -16,4 +21,13 @@
 	  	alert("Oops...)\nErr:\n"+textStatus+"\n"+errorThrown)
 	  	});
 	}
+	function edit_field_conditions(callback)
+	{
+		submit_conditions('<%=url_for(action: 'edit_custom_field', controller: 'redmine_field_conditions', format: 'js')%>')
+	}
+
+	function add_blank_rule(){
+		submit_conditions('<%=url_for(action: 'add_blank_condition', controller: 'redmine_field_conditions', format: 'js')%>')
+	}
+
 </script>
