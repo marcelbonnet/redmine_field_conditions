@@ -7,3 +7,5 @@ pt-BR:
     label_rule_op: Operador
     label_rule_val: Valor
     label_button_new_rule: Nova Regra
+    validator:
+      uniq_name: Cada regra deve ter um nome único
