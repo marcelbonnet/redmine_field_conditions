@@ -19,20 +19,22 @@ module RedmineFieldConditions
 			fc = params["custom_field"]["field_conditions"]
 			@conditions = {
 				"rules" => [],
-				"enabled" => nil,
-				"expr" => ""
+				"enabled" => (params["custom_field"]["field_conditions"]["enabled"]== "1"),
+				"expr" => params["custom_field"]["field_conditions"]["expr"]
 			}
 			
-			fc['rule_name'].each_with_index do |name, i|
-				@conditions['rules'].push( {
-					"name" => name.parameterize,
-					"rule" => {
-						"name" => name,
-						"field" => fc["rule_field"][i],
-						"op" => fc["rule_op"][i],
-						"val" => fc["rule_val"][i],
-					}
-				})
+			unless fc['rule_name'].nil?
+				fc['rule_name'].each_with_index do |name, i|
+					@conditions['rules'].push( {
+						"name" => name.parameterize,
+						"rule" => {
+							"name" => name,
+							"field" => fc["rule_field"][i],
+							"op" => fc["rule_op"][i],
+							"val" => fc["rule_val"][i],
+						}
+					})
+				end
 			end
 
 			# format parameters to save CustomField attribute conditions
