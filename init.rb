@@ -13,7 +13,7 @@ Redmine::Plugin.register :redmine_field_conditions do
 end
 
 require_dependency 'redmine_field_conditions/hooks/custom_table_hook'
-# require_dependency 'redmine_field_conditions/hooks/custom_table_view_hook'
+require_dependency 'redmine_field_conditions/hooks/custom_table_view_hook'
 require_dependency 'redmine_field_conditions/hooks/custom_field_view_hook'
 
 Rails.configuration.to_prepare do

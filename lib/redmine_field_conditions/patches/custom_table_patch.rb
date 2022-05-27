@@ -6,10 +6,10 @@ module RedmineFieldConditions
 				base.extend(ClassMethods)
 				base.send :prepend, InstanceMethods
 				base.class_eval do
-					store :conditions, accessors: [:rules, :expr], coder: JSON
-					safe_attributes 'conditions'
 					include RedmineFieldConditions
 					include RedmineFieldConditions::Validator
+					store :conditions, accessors: [:rules, :expr], coder: JSON
+					safe_attributes 'conditions'
 					validate :validate_field_conditions
 				end
 			end

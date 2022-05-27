@@ -5,8 +5,10 @@ module RedmineFieldConditions
         # redmine_tables plugin patch
         begin
           CustomTable.is_a?(Class)
-          CustomTable.send :include, RedmineFieldConditions::Patches::CustomTablePatch
           puts "redmine_field_conditions found redmine_tables. Applying patch..."
+          CustomTable.send :include, RedmineFieldConditions::Patches::CustomTablePatch
+          CustomTablesHelper.send :include, RedmineFieldConditions::Patches::CustomFieldsHelperPatch
+          CustomTablesController.send :include, RedmineFieldConditions::Patches::CustomTablesControllerPatch
         rescue NameError
         end
 

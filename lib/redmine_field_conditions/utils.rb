@@ -8,10 +8,19 @@ module RedmineFieldConditions
 			# 	e params["custom_field"]["field_format"]
 			# se for um campo existente, não traz o type. Vou ter que buscar por params["custom_field"]["cf_id"]
 			if not params["custom_field"]["cf_id"].empty?
-				@custom_field = CustomField.find(params["custom_field"]["cf_id"])
+				if not params.has_key?("custom_table")
+					@custom_field = CustomField.find(params["custom_field"]["cf_id"])
+				else
+					@custom_field = CustomTable.find(params["custom_field"]["cf_id"])
+				end
 			else
-				@custom_field = CustomField.new
-				@custom_field.safe_attributes = params["custom_field"]
+				if not params.has_key?("custom_table")
+					@custom_field = CustomField.new
+					@custom_field.safe_attributes = params["custom_field"]
+				else
+					@custom_field = CustomTable.new
+					@custom_field.safe_attributes = params["custom_table"]
+				end
 			end
 
 			# format @conditions for exhibiton
@@ -37,8 +46,12 @@ module RedmineFieldConditions
 				end
 			end
 
-			# format parameters to save CustomField attribute conditions
-			params["custom_field"]["conditions"] = @conditions
+			if not params.has_key?("custom_table")
+				# format parameters to save CustomField attribute conditions
+				params["custom_field"]["conditions"] = @conditions
+			else
+				params["custom_table"]["conditions"] = @conditions
+			end
 		end
 
 	end

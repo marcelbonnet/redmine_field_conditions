@@ -25,8 +25,10 @@ module RedmineFieldConditionsHelper
 		end
 		selected_field = (rules.nil? ? "" : rules['rule']['field'])
 
+		cf_type = custom_field.type
+		cf_type = "IssueCustomField" if custom_field.is_a?(CustomTable)
 		elements = label_tag( l("redmine_field_conditions.label_rule_field"))
-		elements << select_tag("custom_field[field_conditions][rule_field][]", options_for_select(core_fields, selected_field) + options_from_collection_for_select(CustomField.where(type: custom_field.type).order(:name), "id", "name", selected_field))
+		elements << select_tag("custom_field[field_conditions][rule_field][]", options_for_select(core_fields, selected_field) + options_from_collection_for_select(CustomField.where(type: cf_type).order(:name), "id", "name", selected_field))
 		html << content_tag(:p, elements)
 		
 		elements = label_tag( l("redmine_field_conditions.label_rule_op"))

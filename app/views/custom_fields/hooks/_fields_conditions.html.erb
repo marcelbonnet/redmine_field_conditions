@@ -1,3 +1,4 @@
+<% @custom_field = @custom_table if @custom_table %>
 <hr>
 
 <div id="field_conditions">
@@ -17,10 +18,16 @@
 
 <script type="text/javascript">
 	function submit_conditions(url){
+
+		var $form = $('#custom_field_form')
+		
+		if ($('#custom_table_form').length > 0)
+			$form = $("#tab-content-general > form")
+
 		$.ajax({
 	    url: url,
 	    type: 'post',
-	    data: $('#custom_field_form').serialize(),
+	    data: $form.serialize(),
 	    complete: toggleDisabledInit
 	  }).error(function(jqXHR, textStatus, errorThrown){
 	  	alert("Oops...)\nErr:\n"+textStatus+"\n"+errorThrown)
