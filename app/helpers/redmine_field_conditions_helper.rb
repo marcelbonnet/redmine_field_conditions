@@ -55,7 +55,7 @@ module RedmineFieldConditionsHelper
 		html << content_tag(:p, elements)
 
 		elements = label_tag("")
-		elements << button_tag("", type: 'button', class: 'icon-only icon-del', onclick:"submit_conditions('#{url_for(action: 'remove_rule', controller: 'redmine_field_conditions', rule: rule_index , format: 'js')}')")
+		elements << button_tag("", type: 'button', class: 'icon-only icon-del', name: "#{@param_name}[conditions][button_delete_rule][]", onclick:"submit_conditions('#{url_for(action: 'remove_rule', controller: 'redmine_field_conditions', rule: rule_index , format: 'js')}')")
 		html << content_tag(:p, elements)
 
 		content_tag(:div, html.html_safe, "data-rule": rule_index)

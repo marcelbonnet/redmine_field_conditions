@@ -13,7 +13,7 @@ set_parameter_name
 	<%=text_area_tag "#{@param_name}[conditions][expr]", @custom_field.conditions["expr"] %>
 </p>
 
-<%=button_tag l("redmine_field_conditions.label_button_new_rule"), type: 'button', class: 'icon icon-add', onclick:"add_blank_rule()" %>
+<%=button_tag l("redmine_field_conditions.label_button_new_rule"), type: 'button', class: 'icon icon-add', onclick:"add_blank_rule()", name: "#{@param_name}[conditions][button_new_rule]" %>
 
 <%=hidden_field_tag "#{@param_name}[cf_id]", @custom_field.id %>
 
@@ -50,4 +50,35 @@ set_parameter_name
 		submit_conditions('<%=url_for(action: 'add_blank_condition', controller: 'redmine_field_conditions', format: 'js')%>')
 	}
 
+	//============ enable/disable conditions form =============//
+
+	function toggle_conditions_form(){
+		var b = ($("input[name='custom_table[tracker_ids][]']:checked").length > 0)
+
+		$("input, select, button").filter(function(){ return $(this).prop('name').match(/.*\[conditions\].*/); }).prop('disabled', !b)
+	}
+
+	$(document).ready(function(ev){
+		/*
+			A CustomTable with no Tracker is not related to an Issue.
+			In this case, "conditions" shall be disabled.
+		*/ 
+
+		// check if this page is new/edit CustomTable View
+		// if ($('#custom_table_form').length == 0 && $("#tab-content-general > form").length == 0 )
+		// 	return;
+
+		// custom_table tracker ids:
+		var $ck = $("input[name='custom_table[tracker_ids][]']")
+
+		if ($ck.length == 0)
+			return; //this is not a custom_table form
+
+		$ck.on('change', function(ck_event){
+			toggle_conditions_form()
+		});
+
+		// on load partial:
+		toggle_conditions_form()
+	})
 </script>
