@@ -1,6 +1,6 @@
 <p>
 	<%=label_tag l("redmine_field_conditions.label_enabled") %>
-	<%=check_box_tag "custom_field[conditions][enabled]", '1', @custom_field.conditions['enabled']  %>
+	<%=check_box_tag "#{@param_name}[conditions][enabled]", '1', @custom_field.conditions['enabled']  %>
 	<%= l("redmine_field_conditions.label_active") %>
 </p>
 

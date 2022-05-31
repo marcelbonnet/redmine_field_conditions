@@ -19,7 +19,6 @@ require_dependency 'redmine_field_conditions/hooks/custom_field_view_hook'
 Rails.configuration.to_prepare do
   CustomField.send :include, RedmineFieldConditions::Patches::CustomFieldPatch
   CustomFieldsHelper.send :include, RedmineFieldConditions::Patches::CustomFieldsHelperPatch
-  CustomFieldsController.send :include, RedmineFieldConditions::Patches::CustomFieldsControllerPatch
   Issue.send :include, RedmineFieldConditions::Patches::IssuePatch
 end
 

@@ -8,7 +8,6 @@ module RedmineFieldConditions
           puts "redmine_field_conditions found redmine_tables. Applying patch..."
           CustomTable.send :include, RedmineFieldConditions::Patches::CustomTablePatch
           CustomTablesHelper.send :include, RedmineFieldConditions::Patches::CustomFieldsHelperPatch
-          CustomTablesController.send :include, RedmineFieldConditions::Patches::CustomTablesControllerPatch
         rescue NameError
         end
 

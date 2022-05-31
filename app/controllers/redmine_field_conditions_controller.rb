@@ -8,6 +8,7 @@ class RedmineFieldConditionsController < ApplicationController
 	end
 
 	def add_blank_condition
+		@custom_table = true if params.has_key?"custom_table"
 	end
 
 	def remove_rule

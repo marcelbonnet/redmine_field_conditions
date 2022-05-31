@@ -1,4 +1,7 @@
-<% @custom_field = @custom_table if @custom_table %>
+<% 
+set_custom_object
+set_parameter_name
+%>
 <hr>
 
 <div id="field_conditions">
@@ -7,20 +10,27 @@
 
 <p>
 	<%=label_tag l("redmine_field_conditions.label_expr") %>
-	<%=text_area_tag "custom_field[conditions][expr]", @custom_field.conditions["expr"] %>
+	<%=text_area_tag "#{@param_name}[conditions][expr]", @custom_field.conditions["expr"] %>
 </p>
 
 <%=button_tag l("redmine_field_conditions.label_button_new_rule"), type: 'button', class: 'icon icon-add', onclick:"add_blank_rule()" %>
 
-<%=hidden_field_tag "custom_field[cf_id]", @custom_field.id %>
+<%=hidden_field_tag "#{@param_name}[cf_id]", @custom_field.id %>
 
 <script type="text/javascript">
 	function submit_conditions(url){
 
 		var $form = $('#custom_field_form')
 		
-		if ($('#custom_table_form').length > 0)
+		if ($('#custom_table_form').length > 0){
+			// view: edit
 			$form = $("#tab-content-general > form")
+
+			// view (modal): new custom table
+			if ($form.length == 0)
+				$form = $('#custom_table_form')
+
+		}
 
 		$.ajax({
 	    url: url,
