@@ -12,3 +12,4 @@ pt-BR:
       uniq_name: Cada regra deve ter um nome único
       blank_name: O nome da regra não pode ser vazio
       space_name: O nome da regra não pode conter espaço
+      success: Condições salvas com sucesso

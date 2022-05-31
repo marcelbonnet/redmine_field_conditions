@@ -5,7 +5,7 @@
 </p>
 
 <% if @conditions.nil? %>
-	<% current_conditions = @custom_field.conditions %>
+	<% current_conditions = @custom_field.id.nil? ? @conditions : @custom_field.conditions %>
 <% else %>
 	<% current_conditions = @conditions %>
 <% end %>

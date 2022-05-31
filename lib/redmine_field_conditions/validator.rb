@@ -2,6 +2,8 @@ module RedmineFieldConditions
 	module Validator # To be included by CustomField and CustomTable models
 
 		def validate_field_conditions
+			return unless self.conditions.has_key?"rules"
+			
 			ids = self.conditions['rules'].collect{|r| r['name'] }
 
 			errors.add(:base, l('redmine_field_conditions.validator.uniq_name')) if ids.uniq.count != ids.count

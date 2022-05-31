@@ -11,7 +11,6 @@ class RedmineFieldConditionsController < ApplicationController
 	end
 
 	def remove_rule
-		# @conditions['rules'].delete_at(params['rule'].to_i)
 		@position = params['rule']
 	end
 
