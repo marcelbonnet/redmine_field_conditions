@@ -1,15 +1,9 @@
 <p>
 	<%=label_tag l("redmine_field_conditions.label_enabled") %>
-	<%=check_box_tag "custom_field[field_conditions][enabled]", '1', @custom_field.conditions['enabled']  %>
+	<%=check_box_tag "custom_field[conditions][enabled]", '1', @custom_field.conditions['enabled']  %>
 	<%= l("redmine_field_conditions.label_active") %>
 </p>
 
-<% if @conditions.nil? %>
-	<% current_conditions = @custom_field.id.nil? ? @conditions : @custom_field.conditions %>
-<% else %>
-	<% current_conditions = @conditions %>
-<% end %>
-
-<% current_conditions['rules'].each_with_index do |obj, n| %>
+<% @custom_field.conditions['rules'].each_with_index do |obj, n| %>
 	<%=build_conditions_form(@custom_field, obj, n)%>
 <% end %>

@@ -17,7 +17,7 @@ class RedmineFieldConditionsController < ApplicationController
 	private
 
 	def prepare_conditions
-		params_to_conditions(params)
+		init_object_from_params(params)
 	end
 
 end

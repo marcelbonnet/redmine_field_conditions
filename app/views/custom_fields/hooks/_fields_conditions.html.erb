@@ -7,14 +7,12 @@
 
 <p>
 	<%=label_tag l("redmine_field_conditions.label_expr") %>
-	<%=text_area_tag "custom_field[field_conditions][expr]", (@conditions.nil? ? @custom_field.conditions["expr"] : @conditions["expr"]) %>
+	<%=text_area_tag "custom_field[conditions][expr]", @custom_field.conditions["expr"] %>
 </p>
 
 <%=button_tag l("redmine_field_conditions.label_button_new_rule"), type: 'button', class: 'icon icon-add', onclick:"add_blank_rule()" %>
 
 <%=hidden_field_tag "custom_field[cf_id]", @custom_field.id %>
-<%#=hidden_field_tag "custom_field[add_blank_rule]", "" %>
-<%#=hidden_field_tag "custom_field[remove_rule]", "" %>
 
 <script type="text/javascript">
 	function submit_conditions(url){
