@@ -7,7 +7,8 @@ module RedmineFieldConditionsHelper
 		['>', 'gt'],
 		['>=', 'ge'],
 		['<', 'lt'],
-		['<=', 'le']
+		['<=', 'le'],
+		['value', 'getvalue']
 	]
 
 	def set_custom_object

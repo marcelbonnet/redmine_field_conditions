@@ -1,1 +1,6 @@
 $("#field_conditions").append("<%=escape_javascript(render partial:'custom_fields/blank_condition', locals:{custom_field: @custom_field})%>")
+
+// adds event listener for the 'condition operator'
+$("select[name='<%=@param_name%>[conditions][rule_op][]']:last").on('change', function(){ 
+		toggle_conditions_value();
+	});

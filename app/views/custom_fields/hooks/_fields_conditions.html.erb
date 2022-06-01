@@ -50,8 +50,8 @@ set_parameter_name
 		submit_conditions('<%=url_for(action: 'add_blank_condition', controller: 'redmine_field_conditions', format: 'js')%>')
 	}
 
-	//============ enable/disable conditions form =============//
-
+	
+	// Enable/disable conditions form
 	function toggle_conditions_form(){
 		var b = ($("input[name='custom_table[tracker_ids][]']:checked").length > 0)
 
@@ -78,7 +78,8 @@ set_parameter_name
 			toggle_conditions_form()
 		});
 
+
 		// on load partial:
-		toggle_conditions_form()
-	})
+		toggle_conditions_form();
+	});
 </script>

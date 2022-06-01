@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_field_conditions do
   name 'Redmine Field Conditions'
   author 'Marcel Bonnet'
   description 'Adds conditions for custom fields to dynamically change rules for its exhibition or filling requirement.'
-  version '0.0.4'
+  version '0.0.5'
   url 'https://github.com/marcelbonnet/redmine_field_conditions'
   author_url 'https://github.com/marcelbonnet'
 

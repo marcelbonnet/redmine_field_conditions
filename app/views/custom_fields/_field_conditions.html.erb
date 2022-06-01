@@ -7,3 +7,26 @@
 <% @custom_field.conditions['rules'].each_with_index do |obj, n| %>
 	<%=build_conditions_form(@custom_field, obj, n)%>
 <% end %>
+
+<script type="text/javascript">
+	// Enable/disable value field from condtions form: 
+	// input for 'condition value' is disabled if 
+	// 'condition operator' is 'getvalue'
+	function toggle_conditions_value(){
+		$("select[name='<%=@param_name%>[conditions][rule_op][]'] option:selected").each(function(){
+			var div = $(this).parent().parent().parent()
+			$(div).find("input[name='<%=@param_name%>[conditions][rule_val][]']").prop('disabled', $(this).val() == 'getvalue' )
+		});
+	}
+
+	$(document).ready(function(ev){
+		// listen to 'condition operator':
+		$("select[name='<%=@param_name%>[conditions][rule_op][]']").on('change', function(){ 
+			toggle_conditions_value();
+		});
+
+		// on load partial:
+		toggle_conditions_value();
+	})
+
+</script>
